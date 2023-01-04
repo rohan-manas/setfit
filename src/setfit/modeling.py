@@ -486,10 +486,16 @@ class SetFitModel(PyTorchModelHubMixin):
                         in_features=body_embedding_dim, device=target_device
                     )  # follow the `model_body`, put `model_head` on the target device
             else:
-                if "head_params" in model_kwargs.keys():
-                    clf = LogisticRegression(**model_kwargs["head_params"])
+
+                if "custom_head" in model_kwargs.keys():
+                    clf = model_kwargs["custom_head"]
                 else:
-                    clf = LogisticRegression()
+                    clf = LogisticRegression
+
+                if "head_params" in model_kwargs.keys():
+                    clf = clf(**model_kwargs["head_params"])
+                else:
+                    clf = clf()
                 if multi_target_strategy is not None:
                     if multi_target_strategy == "one-vs-rest":
                         multilabel_classifier = OneVsRestClassifier(clf)

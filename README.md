@@ -87,6 +87,16 @@ model = SetFitModel.from_pretrained("lewtun/my-awesome-setfit-model")
 preds = model(["i loved the spiderman movie!", "pineapple on pizza is the worst 🤮"])
 ```
 
+To use a different classifier than LogisticRegression:
+
+```python
+from setfit import SetFitModel, SetFitTrainer, sample_dataset
+from sklearn.ensemble import RandomForestClassifier
+
+model = SetFitModel.from_pretrained("sentence-transformers/paraphrase-mpnet-base-v2", custom_head=RandomForestClassifier)
+```
+Classifier parameters can be specified by passing them in `head_params`
+
 Here is an end-to-end example using `SetFitHead`:
 
 
