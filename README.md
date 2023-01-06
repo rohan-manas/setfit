@@ -1,3 +1,18 @@
+## Customizations
+
+- Added an extra optional keyword argument to `SetFitModel.from_pretrained()` method to attach any classifier head other than LogisticRegression.
+
+```python
+from setfit import SetFitModel, SetFitTrainer, sample_dataset
+from sklearn.ensemble import RandomForestClassifier
+
+model = SetFitModel.from_pretrained("sentence-transformers/paraphrase-mpnet-base-v2", custom_head=RandomForestClassifier)
+```
+
+- Bug fix in `model.predict_proba()` method for Pytorch implementation where inputs were not converted to tensors.
+
+<hr/>
+
 <img src="https://raw.githubusercontent.com/huggingface/setfit/main/assets/setfit.png">
 
 <p align="center">
