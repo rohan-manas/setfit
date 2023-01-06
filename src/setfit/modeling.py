@@ -183,7 +183,8 @@ class SetFitHead(models.Dense):
 
     def predict_proba(self, x_test: torch.Tensor) -> torch.Tensor:
         self.eval()
-
+        if not isinstance(x_test, torch.Tensor):  # convert inputs to Tensors
+            x_test = torch.tensor(x_test, dtype=torch.float, device=self.device)
         return self(x_test)
 
     def predict(self, x_test: Union[torch.Tensor, "ndarray"]) -> Union[torch.Tensor, "ndarray"]:
